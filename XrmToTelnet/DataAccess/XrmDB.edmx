@@ -1,0 +1,657 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TSXRM3.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="TSXRM3StoreContainer">
+          <EntitySet Name="tbl_Contact" EntityType="TSXRM3.Store.tbl_Contact" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbl_ContactCommunication" EntityType="TSXRM3.Store.tbl_ContactCommunication" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbl_Task" EntityType="TSXRM3.Store.tbl_Task" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbl_TaskPriority" EntityType="TSXRM3.Store.tbl_TaskPriority" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FContactAssistantID" Association="TSXRM3.Store.FContactAssistantID">
+            <End Role="tbl_Contact" EntitySet="tbl_Contact" />
+            <End Role="tbl_Contact1" EntitySet="tbl_Contact" />
+          </AssociationSet>
+          <AssociationSet Name="FContactCommContactID" Association="TSXRM3.Store.FContactCommContactID">
+            <End Role="tbl_Contact" EntitySet="tbl_Contact" />
+            <End Role="tbl_ContactCommunication" EntitySet="tbl_ContactCommunication" />
+          </AssociationSet>
+          <AssociationSet Name="FContactOwnerID" Association="TSXRM3.Store.FContactOwnerID">
+            <End Role="tbl_Contact" EntitySet="tbl_Contact" />
+            <End Role="tbl_Contact1" EntitySet="tbl_Contact" />
+          </AssociationSet>
+          <AssociationSet Name="FTaskContactID" Association="TSXRM3.Store.FTaskContactID">
+            <End Role="tbl_Contact" EntitySet="tbl_Contact" />
+            <End Role="tbl_Task" EntitySet="tbl_Task" />
+          </AssociationSet>
+          <AssociationSet Name="FTaskOwnerID" Association="TSXRM3.Store.FTaskOwnerID">
+            <End Role="tbl_Contact" EntitySet="tbl_Contact" />
+            <End Role="tbl_Task" EntitySet="tbl_Task" />
+          </AssociationSet>
+          <AssociationSet Name="FTaskPriorityID" Association="TSXRM3.Store.FTaskPriorityID">
+            <End Role="tbl_TaskPriority" EntitySet="tbl_TaskPriority" />
+            <End Role="tbl_Task" EntitySet="tbl_Task" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tbl_Contact">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AccountID" Type="uniqueidentifier" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="TimeZone" Type="nvarchar" MaxLength="250" />
+          <Property Name="CreatedByID" Type="uniqueidentifier" />
+          <Property Name="ModifiedByID" Type="uniqueidentifier" />
+          <Property Name="Dear" Type="nvarchar" MaxLength="100" />
+          <Property Name="SalutationID" Type="uniqueidentifier" />
+          <Property Name="GenderID" Type="nvarchar" MaxLength="250" />
+          <Property Name="DepartmentID" Type="uniqueidentifier" />
+          <Property Name="JobID" Type="uniqueidentifier" />
+          <Property Name="JobTitle" Type="nvarchar" MaxLength="250" />
+          <Property Name="OwnerID" Type="uniqueidentifier" />
+          <Property Name="Address" Type="nvarchar" MaxLength="250" />
+          <Property Name="AddressTypeID" Type="uniqueidentifier" />
+          <Property Name="CityID" Type="uniqueidentifier" />
+          <Property Name="StateID" Type="uniqueidentifier" />
+          <Property Name="CountryID" Type="uniqueidentifier" />
+          <Property Name="TerritoryID" Type="uniqueidentifier" />
+          <Property Name="ZIP" Type="nvarchar" MaxLength="20" />
+          <Property Name="Communication1" Type="nvarchar" MaxLength="250" />
+          <Property Name="Communication2" Type="nvarchar" MaxLength="250" />
+          <Property Name="Communication3" Type="nvarchar" MaxLength="250" />
+          <Property Name="Communication4" Type="nvarchar" MaxLength="250" />
+          <Property Name="Communication1TypeID" Type="uniqueidentifier" />
+          <Property Name="Communication2TypeID" Type="uniqueidentifier" />
+          <Property Name="Communication3TypeID" Type="uniqueidentifier" />
+          <Property Name="Communication4TypeID" Type="uniqueidentifier" />
+          <Property Name="DecisionRoleID" Type="uniqueidentifier" />
+          <Property Name="CampaignID" Type="uniqueidentifier" />
+          <Property Name="Description" Type="image" />
+          <Property Name="DoNotCall" Type="int" />
+          <Property Name="EmailOptOut" Type="int" />
+          <Property Name="ContactTypeID" Type="uniqueidentifier" />
+          <Property Name="Photo" Type="image" />
+          <Property Name="PTS2010" Type="int" />
+          <Property Name="PTS2010Seminar" Type="int" />
+          <Property Name="Object1C" Type="nvarchar" MaxLength="250" />
+          <Property Name="Code1C" Type="nvarchar" MaxLength="250" />
+          <Property Name="AssistantID" Type="uniqueidentifier" />
+          <Property Name="EmployeeStateID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="tbl_ContactCommunication">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="CreatedByID" Type="uniqueidentifier" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="ModifiedByID" Type="uniqueidentifier" />
+          <Property Name="ContactID" Type="uniqueidentifier" />
+          <Property Name="Number" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="CommunicationTypeID" Type="uniqueidentifier" />
+          <Property Name="Position" Type="int" />
+          <Property Name="Digits" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="tbl_Task">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="DueDate" Type="datetime" />
+          <Property Name="PriorityID" Type="uniqueidentifier" />
+          <Property Name="OwnerID" Type="uniqueidentifier" />
+          <Property Name="ContactID" Type="uniqueidentifier" />
+          <Property Name="AccountID" Type="uniqueidentifier" />
+          <Property Name="CampaignID" Type="uniqueidentifier" />
+          <Property Name="OpportunityID" Type="uniqueidentifier" />
+          <Property Name="DocumentID" Type="uniqueidentifier" />
+          <Property Name="InvoiceID" Type="uniqueidentifier" />
+          <Property Name="ContractID" Type="uniqueidentifier" />
+          <Property Name="StatusID" Type="uniqueidentifier" />
+          <Property Name="TypeID" Type="uniqueidentifier" />
+          <Property Name="PercentDue" Type="int" />
+          <Property Name="ResultID" Type="uniqueidentifier" />
+          <Property Name="DetailedResult" Type="nvarchar" MaxLength="250" />
+          <Property Name="ShowInScheduler" Type="int" />
+          <Property Name="Description" Type="image" />
+          <Property Name="Duration" Type="int" />
+          <Property Name="ActualFinishDate" Type="datetime" />
+          <Property Name="ActualDurationHours" Type="int" />
+          <Property Name="ActualDurationMinutes" Type="int" />
+          <Property Name="WorkflowItemID" Type="uniqueidentifier" />
+          <Property Name="IncidentID" Type="uniqueidentifier" />
+          <Property Name="RemindingToAuthorID" Type="uniqueidentifier" />
+          <Property Name="RemindingToOwnerID" Type="uniqueidentifier" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="CreatedByID" Type="uniqueidentifier" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="ModifiedByID" Type="uniqueidentifier" />
+          <Property Name="ActualStartDate" Type="datetime" />
+          <Property Name="ProjectID" Type="uniqueidentifier" />
+          <Property Name="ProjectTeamRoleID" Type="uniqueidentifier" />
+          <Property Name="ActualDuration" Type="int" />
+          <Property Name="CycleTaskParamID" Type="uniqueidentifier" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="2000" />
+          <Property Name="CashflowID" Type="uniqueidentifier" />
+          <Property Name="OfferingMovementID" Type="uniqueidentifier" />
+          <Property Name="DetailedState" Type="nvarchar" MaxLength="250" />
+          <Property Name="Detalization" Type="nvarchar" />
+          <Property Name="NeedSendEmail" Type="int" Nullable="false" />
+          <Property Name="SMSSent" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_TaskPriority">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="CreatedByID" Type="uniqueidentifier" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="ModifiedByID" Type="uniqueidentifier" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="IsDefault" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <Association Name="FContactAssistantID">
+          <End Role="tbl_Contact" Type="TSXRM3.Store.tbl_Contact" Multiplicity="0..1" />
+          <End Role="tbl_Contact1" Type="TSXRM3.Store.tbl_Contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Contact">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_Contact1">
+              <PropertyRef Name="AssistantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FContactCommContactID">
+          <End Role="tbl_Contact" Type="TSXRM3.Store.tbl_Contact" Multiplicity="0..1" />
+          <End Role="tbl_ContactCommunication" Type="TSXRM3.Store.tbl_ContactCommunication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Contact">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_ContactCommunication">
+              <PropertyRef Name="ContactID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FContactOwnerID">
+          <End Role="tbl_Contact" Type="TSXRM3.Store.tbl_Contact" Multiplicity="0..1" />
+          <End Role="tbl_Contact1" Type="TSXRM3.Store.tbl_Contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Contact">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_Contact1">
+              <PropertyRef Name="OwnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FTaskContactID">
+          <End Role="tbl_Contact" Type="TSXRM3.Store.tbl_Contact" Multiplicity="0..1" />
+          <End Role="tbl_Task" Type="TSXRM3.Store.tbl_Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Contact">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_Task">
+              <PropertyRef Name="ContactID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FTaskOwnerID">
+          <End Role="tbl_Contact" Type="TSXRM3.Store.tbl_Contact" Multiplicity="0..1" />
+          <End Role="tbl_Task" Type="TSXRM3.Store.tbl_Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Contact">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_Task">
+              <PropertyRef Name="OwnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FTaskPriorityID">
+          <End Role="tbl_TaskPriority" Type="TSXRM3.Store.tbl_TaskPriority" Multiplicity="0..1" />
+          <End Role="tbl_Task" Type="TSXRM3.Store.tbl_Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_TaskPriority">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_Task">
+              <PropertyRef Name="PriorityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TSXRM3" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="TSXRM3Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_Contact" EntityType="TSXRM3.tbl_Contact" />
+          <EntitySet Name="tbl_ContactCommunication" EntityType="TSXRM3.tbl_ContactCommunication" />
+          <EntitySet Name="tbl_TaskPriority" EntityType="TSXRM3.tbl_TaskPriority" />
+          <AssociationSet Name="FContactAssistantID" Association="TSXRM3.FContactAssistantID">
+            <End Role="tbl_Contact" EntitySet="tbl_Contact" />
+            <End Role="tbl_Contact1" EntitySet="tbl_Contact" />
+          </AssociationSet>
+          <AssociationSet Name="FContactCommContactID" Association="TSXRM3.FContactCommContactID">
+            <End Role="tbl_Contact" EntitySet="tbl_Contact" />
+            <End Role="tbl_ContactCommunication" EntitySet="tbl_ContactCommunication" />
+          </AssociationSet>
+          <AssociationSet Name="FContactOwnerID" Association="TSXRM3.FContactOwnerID">
+            <End Role="tbl_Contact" EntitySet="tbl_Contact" />
+            <End Role="tbl_Contact1" EntitySet="tbl_Contact" />
+          </AssociationSet>
+          <EntitySet Name="tbl_Task" EntityType="TSXRM3.tbl_Task" />
+          <AssociationSet Name="FTaskContactID" Association="TSXRM3.FTaskContactID">
+            <End Role="tbl_Contact" EntitySet="tbl_Contact" />
+            <End Role="tbl_Task" EntitySet="tbl_Task" />
+          </AssociationSet>
+          <AssociationSet Name="FTaskOwnerID" Association="TSXRM3.FTaskOwnerID">
+            <End Role="tbl_Contact" EntitySet="tbl_Contact" />
+            <End Role="tbl_Task" EntitySet="tbl_Task" />
+          </AssociationSet>
+          <AssociationSet Name="FTaskPriorityID" Association="TSXRM3.FTaskPriorityID">
+            <End Role="tbl_TaskPriority" EntitySet="tbl_TaskPriority" />
+            <End Role="tbl_Task" EntitySet="tbl_Task" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="tbl_Contact">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="AccountID" Type="Guid" />
+          <Property Name="CreatedOn" Type="DateTime" />
+          <Property Name="ModifiedOn" Type="DateTime" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="TimeZone" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="CreatedByID" Type="Guid" />
+          <Property Name="ModifiedByID" Type="Guid" />
+          <Property Name="Dear" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="SalutationID" Type="Guid" />
+          <Property Name="GenderID" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="DepartmentID" Type="Guid" />
+          <Property Name="JobID" Type="Guid" />
+          <Property Name="JobTitle" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="OwnerID" Type="Guid" />
+          <Property Name="Address" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="AddressTypeID" Type="Guid" />
+          <Property Name="CityID" Type="Guid" />
+          <Property Name="StateID" Type="Guid" />
+          <Property Name="CountryID" Type="Guid" />
+          <Property Name="TerritoryID" Type="Guid" />
+          <Property Name="ZIP" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="Communication1" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="Communication2" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="Communication3" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="Communication4" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="Communication1TypeID" Type="Guid" />
+          <Property Name="Communication2TypeID" Type="Guid" />
+          <Property Name="Communication3TypeID" Type="Guid" />
+          <Property Name="Communication4TypeID" Type="Guid" />
+          <Property Name="DecisionRoleID" Type="Guid" />
+          <Property Name="CampaignID" Type="Guid" />
+          <Property Name="Description" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="DoNotCall" Type="Int32" />
+          <Property Name="EmailOptOut" Type="Int32" />
+          <Property Name="ContactTypeID" Type="Guid" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="PTS2010" Type="Int32" />
+          <Property Name="PTS2010Seminar" Type="Int32" />
+          <Property Name="Object1C" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="Code1C" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="AssistantID" Type="Guid" />
+          <Property Name="EmployeeStateID" Type="Guid" />
+          <NavigationProperty Name="tbl_Contact1" Relationship="TSXRM3.FContactAssistantID" FromRole="tbl_Contact" ToRole="tbl_Contact1" />
+          <NavigationProperty Name="tbl_Contact2" Relationship="TSXRM3.FContactAssistantID" FromRole="tbl_Contact1" ToRole="tbl_Contact" />
+          <NavigationProperty Name="tbl_ContactCommunication" Relationship="TSXRM3.FContactCommContactID" FromRole="tbl_Contact" ToRole="tbl_ContactCommunication" />
+          <NavigationProperty Name="tbl_Contact11" Relationship="TSXRM3.FContactOwnerID" FromRole="tbl_Contact" ToRole="tbl_Contact1" />
+          <NavigationProperty Name="tbl_Contact3" Relationship="TSXRM3.FContactOwnerID" FromRole="tbl_Contact1" ToRole="tbl_Contact" />
+          <NavigationProperty Name="tbl_Task" Relationship="TSXRM3.FTaskContactID" FromRole="tbl_Contact" ToRole="tbl_Task" />
+          <NavigationProperty Name="tbl_Task1" Relationship="TSXRM3.FTaskOwnerID" FromRole="tbl_Contact" ToRole="tbl_Task" />
+          </EntityType>
+        <EntityType Name="tbl_ContactCommunication">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" />
+          <Property Name="CreatedByID" Type="Guid" />
+          <Property Name="ModifiedOn" Type="DateTime" />
+          <Property Name="ModifiedByID" Type="Guid" />
+          <Property Name="ContactID" Type="Guid" />
+          <Property Name="Number" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="CommunicationTypeID" Type="Guid" />
+          <Property Name="Position" Type="Int32" />
+          <Property Name="Digits" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="tbl_Contact" Relationship="TSXRM3.FContactCommContactID" FromRole="tbl_ContactCommunication" ToRole="tbl_Contact" />
+        </EntityType>
+        <EntityType Name="tbl_TaskPriority">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" />
+          <Property Name="CreatedByID" Type="Guid" />
+          <Property Name="ModifiedOn" Type="DateTime" />
+          <Property Name="ModifiedByID" Type="Guid" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="IsDefault" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="tbl_Task" Relationship="TSXRM3.FTaskPriorityID" FromRole="tbl_TaskPriority" ToRole="tbl_Task" />
+        </EntityType>
+        <Association Name="FContactAssistantID">
+          <End Role="tbl_Contact" Type="TSXRM3.tbl_Contact" Multiplicity="0..1" />
+          <End Role="tbl_Contact1" Type="TSXRM3.tbl_Contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Contact">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_Contact1">
+              <PropertyRef Name="AssistantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FContactCommContactID">
+          <End Role="tbl_Contact" Type="TSXRM3.tbl_Contact" Multiplicity="0..1" />
+          <End Role="tbl_ContactCommunication" Type="TSXRM3.tbl_ContactCommunication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Contact">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_ContactCommunication">
+              <PropertyRef Name="ContactID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FContactOwnerID">
+          <End Role="tbl_Contact" Type="TSXRM3.tbl_Contact" Multiplicity="0..1" />
+          <End Role="tbl_Contact1" Type="TSXRM3.tbl_Contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Contact">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_Contact1">
+              <PropertyRef Name="OwnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tbl_Task">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="StartDate" />
+          <Property Type="DateTime" Name="DueDate" />
+          <Property Type="Guid" Name="PriorityID" />
+          <Property Type="Guid" Name="OwnerID" />
+          <Property Type="Guid" Name="ContactID" />
+          <Property Type="Guid" Name="AccountID" />
+          <Property Type="Guid" Name="CampaignID" />
+          <Property Type="Guid" Name="OpportunityID" />
+          <Property Type="Guid" Name="DocumentID" />
+          <Property Type="Guid" Name="InvoiceID" />
+          <Property Type="Guid" Name="ContractID" />
+          <Property Type="Guid" Name="StatusID" />
+          <Property Type="Guid" Name="TypeID" />
+          <Property Type="Int32" Name="PercentDue" />
+          <Property Type="Guid" Name="ResultID" />
+          <Property Type="String" Name="DetailedResult" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="ShowInScheduler" />
+          <Property Type="Binary" Name="Description" MaxLength="Max" FixedLength="false" />
+          <Property Type="Int32" Name="Duration" />
+          <Property Type="DateTime" Name="ActualFinishDate" />
+          <Property Type="Int32" Name="ActualDurationHours" />
+          <Property Type="Int32" Name="ActualDurationMinutes" />
+          <Property Type="Guid" Name="WorkflowItemID" />
+          <Property Type="Guid" Name="IncidentID" />
+          <Property Type="Guid" Name="RemindingToAuthorID" />
+          <Property Type="Guid" Name="RemindingToOwnerID" />
+          <Property Type="DateTime" Name="CreatedOn" />
+          <Property Type="Guid" Name="CreatedByID" />
+          <Property Type="DateTime" Name="ModifiedOn" />
+          <Property Type="Guid" Name="ModifiedByID" />
+          <Property Type="DateTime" Name="ActualStartDate" />
+          <Property Type="Guid" Name="ProjectID" />
+          <Property Type="Guid" Name="ProjectTeamRoleID" />
+          <Property Type="Int32" Name="ActualDuration" />
+          <Property Type="Guid" Name="CycleTaskParamID" />
+          <Property Type="String" Name="Comments" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="CashflowID" />
+          <Property Type="Guid" Name="OfferingMovementID" />
+          <Property Type="String" Name="DetailedState" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Detalization" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="NeedSendEmail" Nullable="false" />
+          <Property Type="Int32" Name="SMSSent" />
+          <NavigationProperty Name="tbl_Contact" Relationship="TSXRM3.FTaskContactID" FromRole="tbl_Task" ToRole="tbl_Contact" />
+          <NavigationProperty Name="tbl_Contact1" Relationship="TSXRM3.FTaskOwnerID" FromRole="tbl_Task" ToRole="tbl_Contact" />
+          <NavigationProperty Name="tbl_TaskPriority" Relationship="TSXRM3.FTaskPriorityID" FromRole="tbl_Task" ToRole="tbl_TaskPriority" />
+        </EntityType>
+        <Association Name="FTaskContactID">
+          <End Type="TSXRM3.tbl_Contact" Role="tbl_Contact" Multiplicity="0..1" />
+          <End Type="TSXRM3.tbl_Task" Role="tbl_Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Contact">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_Task">
+              <PropertyRef Name="ContactID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FTaskOwnerID">
+          <End Type="TSXRM3.tbl_Contact" Role="tbl_Contact" Multiplicity="0..1" />
+          <End Type="TSXRM3.tbl_Task" Role="tbl_Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Contact">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_Task">
+              <PropertyRef Name="OwnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FTaskPriorityID">
+          <End Type="TSXRM3.tbl_TaskPriority" Role="tbl_TaskPriority" Multiplicity="0..1" />
+          <End Type="TSXRM3.tbl_Task" Role="tbl_Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_TaskPriority">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_Task">
+              <PropertyRef Name="PriorityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TSXRM3StoreContainer" CdmEntityContainer="TSXRM3Entities">
+          <EntitySetMapping Name="tbl_Contact"><EntityTypeMapping TypeName="TSXRM3.tbl_Contact"><MappingFragment StoreEntitySet="tbl_Contact">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+            <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+            <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="TimeZone" ColumnName="TimeZone" />
+            <ScalarProperty Name="CreatedByID" ColumnName="CreatedByID" />
+            <ScalarProperty Name="ModifiedByID" ColumnName="ModifiedByID" />
+            <ScalarProperty Name="Dear" ColumnName="Dear" />
+            <ScalarProperty Name="SalutationID" ColumnName="SalutationID" />
+            <ScalarProperty Name="GenderID" ColumnName="GenderID" />
+            <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+            <ScalarProperty Name="JobID" ColumnName="JobID" />
+            <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+            <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+            <ScalarProperty Name="Address" ColumnName="Address" />
+            <ScalarProperty Name="AddressTypeID" ColumnName="AddressTypeID" />
+            <ScalarProperty Name="CityID" ColumnName="CityID" />
+            <ScalarProperty Name="StateID" ColumnName="StateID" />
+            <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+            <ScalarProperty Name="TerritoryID" ColumnName="TerritoryID" />
+            <ScalarProperty Name="ZIP" ColumnName="ZIP" />
+            <ScalarProperty Name="Communication1" ColumnName="Communication1" />
+            <ScalarProperty Name="Communication2" ColumnName="Communication2" />
+            <ScalarProperty Name="Communication3" ColumnName="Communication3" />
+            <ScalarProperty Name="Communication4" ColumnName="Communication4" />
+            <ScalarProperty Name="Communication1TypeID" ColumnName="Communication1TypeID" />
+            <ScalarProperty Name="Communication2TypeID" ColumnName="Communication2TypeID" />
+            <ScalarProperty Name="Communication3TypeID" ColumnName="Communication3TypeID" />
+            <ScalarProperty Name="Communication4TypeID" ColumnName="Communication4TypeID" />
+            <ScalarProperty Name="DecisionRoleID" ColumnName="DecisionRoleID" />
+            <ScalarProperty Name="CampaignID" ColumnName="CampaignID" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="DoNotCall" ColumnName="DoNotCall" />
+            <ScalarProperty Name="EmailOptOut" ColumnName="EmailOptOut" />
+            <ScalarProperty Name="ContactTypeID" ColumnName="ContactTypeID" />
+            <ScalarProperty Name="Photo" ColumnName="Photo" />
+            <ScalarProperty Name="PTS2010" ColumnName="PTS2010" />
+            <ScalarProperty Name="PTS2010Seminar" ColumnName="PTS2010Seminar" />
+            <ScalarProperty Name="Object1C" ColumnName="Object1C" />
+            <ScalarProperty Name="Code1C" ColumnName="Code1C" />
+            <ScalarProperty Name="AssistantID" ColumnName="AssistantID" />
+            <ScalarProperty Name="EmployeeStateID" ColumnName="EmployeeStateID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="tbl_ContactCommunication"><EntityTypeMapping TypeName="TSXRM3.tbl_ContactCommunication"><MappingFragment StoreEntitySet="tbl_ContactCommunication">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+            <ScalarProperty Name="CreatedByID" ColumnName="CreatedByID" />
+            <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+            <ScalarProperty Name="ModifiedByID" ColumnName="ModifiedByID" />
+            <ScalarProperty Name="ContactID" ColumnName="ContactID" />
+            <ScalarProperty Name="Number" ColumnName="Number" />
+            <ScalarProperty Name="CommunicationTypeID" ColumnName="CommunicationTypeID" />
+            <ScalarProperty Name="Position" ColumnName="Position" />
+            <ScalarProperty Name="Digits" ColumnName="Digits" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="tbl_TaskPriority"><EntityTypeMapping TypeName="TSXRM3.tbl_TaskPriority"><MappingFragment StoreEntitySet="tbl_TaskPriority">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+            <ScalarProperty Name="CreatedByID" ColumnName="CreatedByID" />
+            <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+            <ScalarProperty Name="ModifiedByID" ColumnName="ModifiedByID" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="tbl_Task">
+            <EntityTypeMapping TypeName="TSXRM3.tbl_Task">
+              <MappingFragment StoreEntitySet="tbl_Task">
+                <ScalarProperty Name="SMSSent" ColumnName="SMSSent" />
+                <ScalarProperty Name="NeedSendEmail" ColumnName="NeedSendEmail" />
+                <ScalarProperty Name="Detalization" ColumnName="Detalization" />
+                <ScalarProperty Name="DetailedState" ColumnName="DetailedState" />
+                <ScalarProperty Name="OfferingMovementID" ColumnName="OfferingMovementID" />
+                <ScalarProperty Name="CashflowID" ColumnName="CashflowID" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="CycleTaskParamID" ColumnName="CycleTaskParamID" />
+                <ScalarProperty Name="ActualDuration" ColumnName="ActualDuration" />
+                <ScalarProperty Name="ProjectTeamRoleID" ColumnName="ProjectTeamRoleID" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="ActualStartDate" ColumnName="ActualStartDate" />
+                <ScalarProperty Name="ModifiedByID" ColumnName="ModifiedByID" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="CreatedByID" ColumnName="CreatedByID" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="RemindingToOwnerID" ColumnName="RemindingToOwnerID" />
+                <ScalarProperty Name="RemindingToAuthorID" ColumnName="RemindingToAuthorID" />
+                <ScalarProperty Name="IncidentID" ColumnName="IncidentID" />
+                <ScalarProperty Name="WorkflowItemID" ColumnName="WorkflowItemID" />
+                <ScalarProperty Name="ActualDurationMinutes" ColumnName="ActualDurationMinutes" />
+                <ScalarProperty Name="ActualDurationHours" ColumnName="ActualDurationHours" />
+                <ScalarProperty Name="ActualFinishDate" ColumnName="ActualFinishDate" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ShowInScheduler" ColumnName="ShowInScheduler" />
+                <ScalarProperty Name="DetailedResult" ColumnName="DetailedResult" />
+                <ScalarProperty Name="ResultID" ColumnName="ResultID" />
+                <ScalarProperty Name="PercentDue" ColumnName="PercentDue" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="ContractID" ColumnName="ContractID" />
+                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+                <ScalarProperty Name="OpportunityID" ColumnName="OpportunityID" />
+                <ScalarProperty Name="CampaignID" ColumnName="CampaignID" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="ContactID" ColumnName="ContactID" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+                <ScalarProperty Name="PriorityID" ColumnName="PriorityID" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="XrmDB" ZoomLevel="43">
+        <EntityTypeShape EntityType="TSXRM3.tbl_Contact" Width="1.5" PointX="0.75" PointY="3.125" Height="10.633850911458332" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSXRM3.tbl_ContactCommunication" Width="1.5" PointX="3" PointY="6.875" Height="3.1340950520833317" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSXRM3.tbl_TaskPriority" Width="1.5" PointX="3.75" PointY="3" Height="2.7494921874999996" IsExpanded="true" />
+        <AssociationConnector Association="TSXRM3.FContactAssistantID" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.2819230769230767" PointY="13.758850911458332" />
+          <ConnectorPoint PointX="1.2819230769230767" PointY="14.008850911458332" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="14.008850911458332" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="13.758850911458332" />
+        </AssociationConnector>
+        <AssociationConnector Association="TSXRM3.FContactCommContactID" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="8.4420475260416659" />
+          <ConnectorPoint PointX="3" PointY="8.4420475260416659" />
+        </AssociationConnector>
+        <AssociationConnector Association="TSXRM3.FContactOwnerID" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.2819230769230767" PointY="3.125" />
+          <ConnectorPoint PointX="1.2819230769230767" PointY="2.875" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="2.875" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="3.125" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="TSXRM3.tbl_Task" Width="1.5" PointX="6" PointY="3.375" Height="10.056946614583332" />
+        <AssociationConnector Association="TSXRM3.FTaskContactID" >
+          <ConnectorPoint PointX="2.25" PointY="11.751770833333332" />
+          <ConnectorPoint PointX="6" PointY="11.751770833333332" />
+        </AssociationConnector>
+        <AssociationConnector Association="TSXRM3.FTaskOwnerID" >
+          <ConnectorPoint PointX="2.25" PointY="10.849182942708332" />
+          <ConnectorPoint PointX="6" PointY="10.849182942708332" />
+        </AssociationConnector>
+        <AssociationConnector Association="TSXRM3.FTaskPriorityID" >
+          <ConnectorPoint PointX="5.25" PointY="4.56224609375" />
+          <ConnectorPoint PointX="6" PointY="4.56224609375" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
