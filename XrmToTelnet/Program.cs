@@ -35,7 +35,7 @@ namespace XrmToTelnet
                 List<string> nums = DataConnector.Instance.GetContactPhoneNumbers(t.OwnerID);
                 if (nums.Count == 0)                
                 {
-                    sms = "Terrasoft: not found " + DataConnector.Instance.GetContactName(t.OwnerID);
+                    sms = "Terrasoft: not found " + Transliter.Transliterate(DataConnector.Instance.GetContactName(t.OwnerID));
                     string AdminPhone = System.Configuration.ConfigurationManager.AppSettings["admin_phone"];
                     GSMGate.SendSms(AdminPhone, sms);                 
                 }
