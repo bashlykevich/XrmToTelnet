@@ -28,8 +28,10 @@ namespace XrmToTelnet.DataAccess
             List<tbl_Task> tasks = new List<tbl_Task>();
             Guid? g = new Guid("F6E5132C-BFC4-48E4-832B-0A60BBF6FC57");
             tasks = db.tbl_Task.Where(t => (t.PriorityID == g && t.SMSSent.HasValue)).ToList();
-            tasks = tasks.Where(t => t.SMSSent.Value == 0).ToList();
-            //debugtasks = db.tbl_Task.Where(t => (t.PriorityID == g)).ToList();            
+            //Console.WriteLine("COUNT1: " + tasks.Count);
+            tasks = tasks.Where(t => t.SMSSent == 0).ToList();
+            //Console.WriteLine("COUNT2: " + tasks.Count);
+            //debugtasks = db.tbl_Task.Where(t => (t.PriorityID == g)).ToList();
             foreach (tbl_Task task in tasks)
             {
                 task.SMSSent = 1;
@@ -72,6 +74,5 @@ namespace XrmToTelnet.DataAccess
             else
                 return String.Empty;
         }
-
     }
 }
