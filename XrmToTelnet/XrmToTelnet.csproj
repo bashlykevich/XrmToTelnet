@@ -68,12 +68,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>XrmDB.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DataReceivedEventArgs.cs" />
-    <Compile Include="GSMGate.cs" />
+    <Compile Include="GsmTelnet\DataReceivedEventArgs.cs" />
+    <Compile Include="GsmTelnet\GSMGate.cs" />
+    <Compile Include="Netland\TaskSmsSender.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TelnetClient.cs" />
-    <Compile Include="Transliter.cs" />
+    <Compile Include="GsmTelnet\TelnetClient.cs" />
+    <Compile Include="Helper\Transliter.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -106,6 +107,7 @@
   <ItemGroup>
     <None Include="App.Config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
