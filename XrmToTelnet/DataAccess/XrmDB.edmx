@@ -8,6 +8,7 @@
         <EntityContainer Name="TSXRM3StoreContainer">
           <EntitySet Name="tbl_Contact" EntityType="TSXRM3.Store.tbl_Contact" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tbl_ContactCommunication" EntityType="TSXRM3.Store.tbl_ContactCommunication" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbl_SmsJournal" EntityType="TSXRM3.Store.tbl_SmsJournal" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tbl_Task" EntityType="TSXRM3.Store.tbl_Task" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tbl_TaskPriority" EntityType="TSXRM3.Store.tbl_TaskPriority" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FContactAssistantID" Association="TSXRM3.Store.FContactAssistantID">
@@ -21,6 +22,10 @@
           <AssociationSet Name="FContactOwnerID" Association="TSXRM3.Store.FContactOwnerID">
             <End Role="tbl_Contact" EntitySet="tbl_Contact" />
             <End Role="tbl_Contact1" EntitySet="tbl_Contact" />
+          </AssociationSet>
+          <AssociationSet Name="FSmsJournalTaskID" Association="TSXRM3.Store.FSmsJournalTaskID">
+            <End Role="tbl_Task" EntitySet="tbl_Task" />
+            <End Role="tbl_SmsJournal" EntitySet="tbl_SmsJournal" />
           </AssociationSet>
           <AssociationSet Name="FTaskContactID" Association="TSXRM3.Store.FTaskContactID">
             <End Role="tbl_Contact" EntitySet="tbl_Contact" />
@@ -98,6 +103,14 @@
           <Property Name="Position" Type="int" />
           <Property Name="Digits" Type="nvarchar" MaxLength="250" />
         </EntityType>
+        <EntityType Name="tbl_SmsJournal">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="TaskID" Type="uniqueidentifier" />
+        </EntityType>
         <EntityType Name="tbl_Task">
           <Key>
             <PropertyRef Name="ID" />
@@ -144,8 +157,10 @@
           <Property Name="OfferingMovementID" Type="uniqueidentifier" />
           <Property Name="DetailedState" Type="nvarchar" MaxLength="250" />
           <Property Name="Detalization" Type="nvarchar" />
-          <Property Name="NeedSendEmail" Type="int" Nullable="false" />
-          <Property Name="SMSSent" Type="int" />
+          <Property Name="NeedSendEmail" Type="int" />
+          <Property Name="ProjectMinID" Type="uniqueidentifier" />
+          <Property Name="ContactGroupID" Type="uniqueidentifier" />
+          <Property Name="IsGroupTask" Type="int" />
         </EntityType>
         <EntityType Name="tbl_TaskPriority">
           <Key>
@@ -193,6 +208,18 @@
             </Principal>
             <Dependent Role="tbl_Contact1">
               <PropertyRef Name="OwnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FSmsJournalTaskID">
+          <End Role="tbl_Task" Type="TSXRM3.Store.tbl_Task" Multiplicity="0..1" />
+          <End Role="tbl_SmsJournal" Type="TSXRM3.Store.tbl_SmsJournal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Task">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_SmsJournal">
+              <PropertyRef Name="TaskID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -264,6 +291,11 @@
           <AssociationSet Name="FTaskPriorityID" Association="TSXRM3.FTaskPriorityID">
             <End Role="tbl_TaskPriority" EntitySet="tbl_TaskPriority" />
             <End Role="tbl_Task" EntitySet="tbl_Task" />
+          </AssociationSet>
+          <EntitySet Name="tbl_SmsJournal" EntityType="TSXRM3.tbl_SmsJournal" />
+          <AssociationSet Name="FSmsJournalTaskID" Association="TSXRM3.FSmsJournalTaskID">
+            <End Role="tbl_Task" EntitySet="tbl_Task" />
+            <End Role="tbl_SmsJournal" EntitySet="tbl_SmsJournal" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="tbl_Contact">
@@ -409,7 +441,6 @@
           <Property Type="Int32" Name="PercentDue" />
           <Property Type="Guid" Name="ResultID" />
           <Property Type="String" Name="DetailedResult" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="ShowInScheduler" />
           <Property Type="Binary" Name="Description" MaxLength="Max" FixedLength="false" />
           <Property Type="Int32" Name="Duration" />
           <Property Type="DateTime" Name="ActualFinishDate" />
@@ -427,17 +458,17 @@
           <Property Type="Guid" Name="ProjectID" />
           <Property Type="Guid" Name="ProjectTeamRoleID" />
           <Property Type="Int32" Name="ActualDuration" />
-          <Property Type="Guid" Name="CycleTaskParamID" />
           <Property Type="String" Name="Comments" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Type="Guid" Name="CashflowID" />
           <Property Type="Guid" Name="OfferingMovementID" />
           <Property Type="String" Name="DetailedState" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Detalization" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="NeedSendEmail" Nullable="false" />
-          <Property Type="Int32" Name="SMSSent" />
           <NavigationProperty Name="tbl_Contact" Relationship="TSXRM3.FTaskContactID" FromRole="tbl_Task" ToRole="tbl_Contact" />
           <NavigationProperty Name="tbl_Contact1" Relationship="TSXRM3.FTaskOwnerID" FromRole="tbl_Task" ToRole="tbl_Contact" />
           <NavigationProperty Name="tbl_TaskPriority" Relationship="TSXRM3.FTaskPriorityID" FromRole="tbl_Task" ToRole="tbl_TaskPriority" />
+          <Property Type="Guid" Name="ContactGroupID" />
+          <Property Type="Int32" Name="IsGroupTask" />
+          <NavigationProperty Name="tbl_SmsJournal" Relationship="TSXRM3.FSmsJournalTaskID" FromRole="tbl_Task" ToRole="tbl_SmsJournal" />
         </EntityType>
         <Association Name="FTaskContactID">
           <End Type="TSXRM3.tbl_Contact" Role="tbl_Contact" Multiplicity="0..1" />
@@ -472,6 +503,27 @@
             </Principal>
             <Dependent Role="tbl_Task">
               <PropertyRef Name="PriorityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tbl_SmsJournal">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedOn" />
+          <Property Type="Guid" Name="TaskID" />
+          <NavigationProperty Name="Task" Relationship="TSXRM3.FSmsJournalTaskID" FromRole="tbl_SmsJournal" ToRole="tbl_Task" />
+        </EntityType>
+        <Association Name="FSmsJournalTaskID">
+          <End Type="TSXRM3.tbl_Task" Role="tbl_Task" Multiplicity="0..1" />
+          <End Type="TSXRM3.tbl_SmsJournal" Role="tbl_SmsJournal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Task">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_SmsJournal">
+              <PropertyRef Name="TaskID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -551,14 +603,13 @@
           <EntitySetMapping Name="tbl_Task">
             <EntityTypeMapping TypeName="TSXRM3.tbl_Task">
               <MappingFragment StoreEntitySet="tbl_Task">
-                <ScalarProperty Name="SMSSent" ColumnName="SMSSent" />
-                <ScalarProperty Name="NeedSendEmail" ColumnName="NeedSendEmail" />
+                <ScalarProperty Name="IsGroupTask" ColumnName="IsGroupTask" />
+                <ScalarProperty Name="ContactGroupID" ColumnName="ContactGroupID" />
                 <ScalarProperty Name="Detalization" ColumnName="Detalization" />
                 <ScalarProperty Name="DetailedState" ColumnName="DetailedState" />
                 <ScalarProperty Name="OfferingMovementID" ColumnName="OfferingMovementID" />
                 <ScalarProperty Name="CashflowID" ColumnName="CashflowID" />
                 <ScalarProperty Name="Comments" ColumnName="Comments" />
-                <ScalarProperty Name="CycleTaskParamID" ColumnName="CycleTaskParamID" />
                 <ScalarProperty Name="ActualDuration" ColumnName="ActualDuration" />
                 <ScalarProperty Name="ProjectTeamRoleID" ColumnName="ProjectTeamRoleID" />
                 <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
@@ -576,7 +627,6 @@
                 <ScalarProperty Name="ActualFinishDate" ColumnName="ActualFinishDate" />
                 <ScalarProperty Name="Duration" ColumnName="Duration" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="ShowInScheduler" ColumnName="ShowInScheduler" />
                 <ScalarProperty Name="DetailedResult" ColumnName="DetailedResult" />
                 <ScalarProperty Name="ResultID" ColumnName="ResultID" />
                 <ScalarProperty Name="PercentDue" ColumnName="PercentDue" />
@@ -598,6 +648,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tbl_SmsJournal">
+            <EntityTypeMapping TypeName="TSXRM3.tbl_SmsJournal">
+              <MappingFragment StoreEntitySet="tbl_SmsJournal">
+                <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -612,15 +671,15 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="XrmDB" ZoomLevel="43">
+      <Diagram Name="XrmDB" ZoomLevel="83">
         <EntityTypeShape EntityType="TSXRM3.tbl_Contact" Width="1.5" PointX="0.75" PointY="3.125" Height="10.633850911458332" IsExpanded="true" />
-        <EntityTypeShape EntityType="TSXRM3.tbl_ContactCommunication" Width="1.5" PointX="3" PointY="6.875" Height="3.1340950520833317" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSXRM3.tbl_ContactCommunication" Width="2.375" PointX="3" PointY="6.875" Height="3.1340950520833317" IsExpanded="true" />
         <EntityTypeShape EntityType="TSXRM3.tbl_TaskPriority" Width="1.5" PointX="3.75" PointY="3" Height="2.7494921874999996" IsExpanded="true" />
         <AssociationConnector Association="TSXRM3.FContactAssistantID" ManuallyRouted="false">
           <ConnectorPoint PointX="1.2819230769230767" PointY="13.758850911458332" />
@@ -638,18 +697,23 @@
           <ConnectorPoint PointX="1.7284615384615383" PointY="2.875" />
           <ConnectorPoint PointX="1.7284615384615383" PointY="3.125" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="TSXRM3.tbl_Task" Width="1.5" PointX="6" PointY="3.375" Height="10.056946614583332" />
+        <EntityTypeShape EntityType="TSXRM3.tbl_Task" Width="1.5" PointX="6" PointY="3.25" Height="9.8646451822916656" />
         <AssociationConnector Association="TSXRM3.FTaskContactID" >
-          <ConnectorPoint PointX="2.25" PointY="11.751770833333332" />
-          <ConnectorPoint PointX="6" PointY="11.751770833333332" />
+          <ConnectorPoint PointX="2.25" PointY="12.0287890625" />
+          <ConnectorPoint PointX="6" PointY="12.0287890625" />
         </AssociationConnector>
         <AssociationConnector Association="TSXRM3.FTaskOwnerID" >
-          <ConnectorPoint PointX="2.25" PointY="10.849182942708332" />
-          <ConnectorPoint PointX="6" PointY="10.849182942708332" />
+          <ConnectorPoint PointX="2.25" PointY="10.987692057291666" />
+          <ConnectorPoint PointX="6" PointY="10.987692057291666" />
         </AssociationConnector>
         <AssociationConnector Association="TSXRM3.FTaskPriorityID" >
-          <ConnectorPoint PointX="5.25" PointY="4.56224609375" />
-          <ConnectorPoint PointX="6" PointY="4.56224609375" />
+          <ConnectorPoint PointX="5.25" PointY="4.49974609375" />
+          <ConnectorPoint PointX="6" PointY="4.49974609375" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="TSXRM3.tbl_SmsJournal" Width="1.5" PointX="8.25" PointY="7.75" Height="1.7879850260416674" />
+        <AssociationConnector Association="TSXRM3.FSmsJournalTaskID" >
+          <ConnectorPoint PointX="7.5" PointY="8.6439925130208337" />
+          <ConnectorPoint PointX="8.25" PointY="8.6439925130208337" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

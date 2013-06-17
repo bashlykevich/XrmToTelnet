@@ -24,19 +24,17 @@ namespace XrmToTelnet.DataAccess
         }
 
         public List<tbl_Task> ProcessUrgentTasks()
-        {
+        {            
             List<tbl_Task> tasks = new List<tbl_Task>();
-            Guid? g = new Guid("F6E5132C-BFC4-48E4-832B-0A60BBF6FC57");
-            tasks = db.tbl_Task.Where(t => (t.PriorityID == g && t.SMSSent.HasValue)).ToList();
-            //Console.WriteLine("COUNT1: " + tasks.Count);
-            tasks = tasks.Where(t => t.SMSSent == 0).ToList();
-            //Console.WriteLine("COUNT2: " + tasks.Count);
-            //debugtasks = db.tbl_Task.Where(t => (t.PriorityID == g)).ToList();
-            foreach (tbl_Task task in tasks)
+            foreach (tbl_SmsJournal queue in db.tbl_SmsJournal)
+            {                
+                tasks.Add(queue.Task);
+            }            
+            while (db.tbl_SmsJournal.Count() > 0)
             {
-                task.SMSSent = 1;
+                db.tbl_SmsJournal.DeleteObject(db.tbl_SmsJournal.First());
+                db.SaveChanges();
             }
-            db.SaveChanges();
             return tasks;
         }
         public string GetContactName(Guid? ContactID)
